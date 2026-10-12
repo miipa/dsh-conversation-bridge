@@ -1,0 +1,20 @@
+# dsh-conversation-bridge mount layer
+#
+# This patch is applied by `dsh plugin --profile <name> add @local/dsh-conversation-bridge`,
+# or by appending the entries below to a profile's own `cordis.patch.yml`.
+#
+# It inserts the host relay plugin and (on Web) its client canvas half. Both halves
+# live in one package: the loader mounts `.` on the host and `./client` in the browser
+# (the `dsh.client.platform: web` manifest flag selects the client export).
+#
+# `insert` adds loader rows after the base bundle layers, so the relay sees the
+# already-mounted `agents`, `sessions`, `sessionProjections`, and `commands` services.
+- insert:
+    - id: dsh-conversation-bridge
+      name: "@local/dsh-conversation-bridge"
+      config:
+        # Hard cap applied when a bridge is started without an explicit --max-turns.
+        defaultMaxTurns: 6
+        # When true, each relayed message is prefixed with a short peer marker
+        # ("[对端] ") so the receiving model can tell bridge input apart from a human.
+        prefixPeerLabel: false
