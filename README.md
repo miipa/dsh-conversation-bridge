@@ -50,7 +50,7 @@ Bridge state is deliberately **in memory only**. The public `session.append` can
 
 ### Requirements
 
-- **DeepSeek Harness (dsh) `0.2.0-rc.2` developer preview** — the dsh packages ship compiled JS without type declarations.
+- **DeepSeek Harness (dsh) `0.2.1-rc.2`** (the `0.2.x` line) — the dsh packages ship compiled JS without type declarations. The package declares `engines.dsh: ">=0.2.1-rc.2 <0.3.0"` purely as documentation of the window it was built against; dsh treats that range as declarative and does not enforce it. The floor matters because the client half must inject the package that provides the slot service, and that package was renamed from `dsh-client-ui-slots` to `dsh-client-ui-renderer` in `0.2.1-rc.2`.
 - The **Web** client: the canvas is a Web UI plugin injected into the `conversation.session.header.actions` slot.
 - **Two open sessions** (each with a live agent) before you press Start; drawing and connecting work regardless.
 - React 18, provided by the host UI, is the only peer dependency the client half needs.
@@ -227,7 +227,7 @@ dsh-conversation-bridge/
 
 ### 环境要求
 
-- **DeepSeek Harness (dsh) `0.2.0-rc.2` 开发预览版**——dsh 各包只发布编译后的 JS，不带类型声明。
+- **DeepSeek Harness (dsh) `0.2.1-rc.2`**（`0.2.x` 线）——dsh 各包只发布编译后的 JS，不带类型声明。包里用 `engines.dsh: ">=0.2.1-rc.2 <0.3.0"` 标注构建时的版本窗口，但 dsh 只把它当声明性元数据，并不会据此拦截。这条下限真正的意义是：客户端半边必须注入提供插槽服务的包，而该包在 `0.2.1-rc.2` 里从 `dsh-client-ui-slots` 改名成了 `dsh-client-ui-renderer`。
 - **Web 客户端**：画布是注入到 `conversation.session.header.actions` 插槽的 Web UI 插件。
 - 点「开始」前需要**两个已打开的会话**（各自有活着的 agent）；拖拽和连线本身不受影响。
 - 客户端半边唯一的 peer dependency 是宿主 UI 自带提供的 React 18。
